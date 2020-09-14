@@ -1,0 +1,25 @@
+# Python:
+*.py[cod]
+*.so
+*.egg
+*.egg-info
+*.pth
+*.pt
+*.pb
+*.h5
+*.pbtxt
+*.weights
+dist
+buil
+.DS_Store*
+.ipynb_checkpoints
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+
+git_push.sh
+.vscode/
+.DS_Store
+
