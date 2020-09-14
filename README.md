@@ -19,10 +19,10 @@ python3 predict_table.py test/dd.jpg
 
 ![](./test/dd.jpg)
 
-### 横线竖线检测
-
-![](./test/dd_seg.png)
-
 ### 单元格输出
 
 ![](./test/dd_box.jpg)
+
+### 横线竖线检测
+
+![](./test/dd_seg.png)
