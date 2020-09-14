@@ -74,8 +74,11 @@ def letterbox_image(image, size):
 
 def min_area_line(coords):
 
+    # 获取最小外接矩形的（中心(x,y), (宽,高), 旋转角度）
     rect = cv2.minAreaRect(coords[:, ::-1])
+    # 可获取该矩形的四个顶点坐标，8个值
     box = cv2.boxPoints(rect)
+
     box = box.reshape((8,)).tolist()
 
     box = sort_box(box)
@@ -229,59 +232,59 @@ def line_to_line(points1, points2, alpha=10):
     return points1
 
 
-def adjust_lines(RowsLines, ColsLines, alph=50):
+def adjust_lines(rows_lines, cols_lines, alph=50):
     # 调整line
-    nrow = len(RowsLines)
-    ncol = len(ColsLines)
-    newRowsLines = []
-    newColsLines = []
+    nrow = len(rows_lines)
+    ncol = len(cols_lines)
+    new_rows_lines = []
+    new_cols_lines = []
     for i in range(nrow):
 
-        x1, y1, x2, y2 = RowsLines[i]
+        x1, y1, x2, y2 = rows_lines[i]
         cx1, cy1 = (x1+x2)/2, (y1+y2)/2
         for j in range(nrow):
             if i != j:
-                x3, y3, x4, y4 = RowsLines[j]
+                x3, y3, x4, y4 = rows_lines[j]
                 cx2, cy2 = (x3+x4)/2, (y3+y4)/2
                 if (x3 < cx1 < x4 or y3 < cy1 < y4) or (x1 < cx2 < x2 or y1 < cy2 < y2):
                     continue
                 else:
                     r = sqrt((x1, y1), (x3, y3))
                     if r < alph:
-                        newRowsLines.append([x1, y1, x3, y3])
+                        new_rows_lines.append([x1, y1, x3, y3])
                     r = sqrt((x1, y1), (x4, y4))
                     if r < alph:
-                        newRowsLines.append([x1, y1, x4, y4])
+                        new_rows_lines.append([x1, y1, x4, y4])
 
                     r = sqrt((x2, y2), (x3, y3))
                     if r < alph:
-                        newRowsLines.append([x2, y2, x3, y3])
+                        new_rows_lines.append([x2, y2, x3, y3])
                     r = sqrt((x2, y2), (x4, y4))
                     if r < alph:
-                        newRowsLines.append([x2, y2, x4, y4])
+                        new_rows_lines.append([x2, y2, x4, y4])
 
     for i in range(ncol):
-        x1, y1, x2, y2 = ColsLines[i]
+        x1, y1, x2, y2 = cols_lines[i]
         cx1, cy1 = (x1+x2)/2, (y1+y2)/2
         for j in range(ncol):
             if i != j:
-                x3, y3, x4, y4 = ColsLines[j]
+                x3, y3, x4, y4 = cols_lines[j]
                 cx2, cy2 = (x3+x4)/2, (y3+y4)/2
                 if (x3 < cx1 < x4 or y3 < cy1 < y4) or (x1 < cx2 < x2 or y1 < cy2 < y2):
                     continue
                 else:
                     r = sqrt((x1, y1), (x3, y3))
                     if r < alph:
-                        newColsLines.append([x1, y1, x3, y3])
+                        new_cols_lines.append([x1, y1, x3, y3])
                     r = sqrt((x1, y1), (x4, y4))
                     if r < alph:
-                        newColsLines.append([x1, y1, x4, y4])
+                        new_cols_lines.append([x1, y1, x4, y4])
 
                     r = sqrt((x2, y2), (x3, y3))
                     if r < alph:
-                        newColsLines.append([x2, y2, x3, y3])
+                        new_cols_lines.append([x2, y2, x3, y3])
                     r = sqrt((x2, y2), (x4, y4))
                     if r < alph:
-                        newColsLines.append([x2, y2, x4, y4])
+                        new_cols_lines.append([x2, y2, x4, y4])
 
-    return newRowsLines, newColsLines
+    return new_rows_lines, new_cols_lines
